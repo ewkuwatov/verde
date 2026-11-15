@@ -1,0 +1,6 @@
+{% extends 'store/base.html' %}
+{% load shop_tags %}
+{% block title %}Заказ принят — VERDE{% endblock %}
+{% block content %}
+<section class="success-page page-gutter"><div class="success-symbol">✳</div><span class="eyebrow">СПАСИБО, {{ order.customer_name|upper }}!</span><h1>Ваш новый друг<br>уже <em>собирается в путь.</em></h1><p>Мы получили заказ №{{ order.pk }} и скоро позвоним по номеру {{ order.phone }}, чтобы согласовать доставку.</p><div class="success-receipt"><span>ВАШ ЗАКАЗ · №{{ order.pk }}</span>{% for item in order.items.all %}<div><span>{{ item.product_name }} × {{ item.quantity }}</span><strong>{{ item.price|mul:item.quantity|currency }} сум</strong></div>{% endfor %}<div class="receipt-total"><span>Итого</span><strong>{{ order.total|currency }} сум</strong></div></div><a class="button button-dark" href="{% url 'catalog' %}">Вернуться в оранжерею <span>↗</span></a></section>
+{% endblock %}

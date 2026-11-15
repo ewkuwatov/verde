@@ -1,0 +1,39 @@
+{% load static shop_tags %}
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f8f7f2">
+    <meta name="description" content="VERDE — комнатные растения, которые легко вписать в вашу жизнь. Доставка по Ташкенту.">
+    <title>{% block title %}VERDE — растения для жизни{% endblock %}</title>
+    <link rel="icon" href="{% static 'store/img/favicon.svg' %}" type="image/svg+xml">
+    <link rel="stylesheet" href="{% static 'store/css/site.css' %}">
+    <script defer src="{% static 'store/js/site.js' %}"></script>
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <div class="announcement"><span>ЗЕЛЁНАЯ ДОСТАВКА ПО ТАШКЕНТУ</span><span>БЕСПЛАТНО ОТ 500 000 СУМ</span><span>ПОДАРОЧНАЯ УПАКОВКА — НАША ЗАБОТА</span></div>
+    <header class="site-header">
+        <a class="brand" href="{% url 'home' %}" aria-label="VERDE — на главную"><span class="brand-mark">v</span><span>VERDE<span class="brand-period">.</span><small>городская оранжерея</small></span></a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-label="Открыть меню"><span></span><span></span></button>
+        <nav class="main-nav" aria-label="Главное меню">
+            <a href="{% url 'catalog' %}">Растения</a><a href="{% url 'home' %}#ritual">Наш подход</a><a href="{% url 'home' %}#care">Уход</a>
+        </nav>
+        <div class="header-actions"><a class="header-note" href="tel:+998901234567">Есть вопрос? <strong>+998 90 123 45 67</strong></a><a class="basket-link" href="{% url 'basket' %}" aria-label="Корзина">Корзина <span class="basket-count">{{ basket_count }}</span></a></div>
+    </header>
+
+    {% if messages %}<div class="toast-stack" aria-live="polite">{% for message in messages %}<div class="toast toast-{{ message.tags }}">{{ message }}<button type="button" class="toast-close" aria-label="Закрыть">×</button></div>{% endfor %}</div>{% endif %}
+
+    <main>{% block content %}{% endblock %}</main>
+
+    <footer class="site-footer">
+        <div class="footer-top"><div class="footer-brand"><a class="brand brand-light" href="{% url 'home' %}"><span class="brand-mark">v</span><span>VERDE<span class="brand-period">.</span><small>городская оранжерея</small></span></a><p>Чуть больше зелени.<br>Чуть больше жизни.</p></div>
+            <div class="footer-column"><span class="footer-label">НАВИГАЦИЯ</span><a href="{% url 'catalog' %}">Все растения</a><a href="{% url 'home' %}#ritual">О нас</a><a href="{% url 'home' %}#care">Уход за растениями</a></div>
+            <div class="footer-column"><span class="footer-label">МЫ НА СВЯЗИ</span><a href="tel:+998901234567">+998 90 123 45 67</a><a href="mailto:hello@verde.uz">hello@verde.uz</a><span>Каждый день, 10:00–20:00</span></div>
+            <div class="footer-news"><span class="footer-label">ПИСЬМА ИЗ ОРАНЖЕРЕИ</span><p>Иногда — новое растение. Всегда — немного вдохновения.</p><form action="{% url 'subscribe' %}" method="post" class="newsletter-form">{% csrf_token %}<label class="visually-hidden" for="footer-email">Ваш email</label><input id="footer-email" type="email" name="email" placeholder="Ваш email" required><button aria-label="Подписаться" type="submit">↗</button></form></div>
+        </div>
+        <div class="footer-bottom"><span>© 2026 VERDE. Выросло с любовью в Ташкенте.</span><span>Маленькими шагами — к большему зелёному.</span></div>
+    </footer>
+</body>
+</html>
